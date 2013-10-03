@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title>raphael-svg-import-classic: Visual Tests</title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="../lib/raphael-min.js"></script>
+  <script src="../raphael-svg-import.js"></script>
+  <style>
+    body {
+      color: #222;
+    }
+    td { border: 1px dotted black; }
+    .fail th { background: #fcc; font-style: italic; }
+    .note { border: 0 none; color: #555; vertical-align: top; }
+  </style>
+</head>
+<body>
+  <section class="instructions">
+    <h1>Visual Tests</h1>
+    <h2>Instructions</h2>
+    <p>
+      View this file in your browsers of interest. There will be two columns.
+      The first is the SVG as rendered by the browser.
+      The second is the SVG as interpreted by raphael-svg-import.js.
+      Known across-the-board test failures are hilighted in red.
+    </p>
+    <h2>Notes</h2>
+    <p>
+      In order for parts of this demo to work, you must be connected to the
+      Internet (I load jquery from a CDN) and use a recent browser and enable
+      local ajax calls in your browser or serve this over http.<br>
+      Minimum Versions:<br>
+    </p>
+    <dl>
+      <dt>Firefox</dt><dd>4+</dd>
+      <dt>Chrome</dt><dd>any</dd>
+    </dl>
+    <p>You can set up a simple http server using <code>python -m SimpleHTTPServer</code></p>
+  </section>
+  <table class="tests">
+    <thead>
+      <tr>
+        <th></th><th style="min-width: 100px;">Original</th><th>Raphael</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th colspan=4>Elementary Shapes</th>
+      </tr>
+      <tr>
+        <th>Line</th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+   <line x1=0 y1=10 x2=80 y2=70 stroke="black" stroke-width="2" fill="red"/>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Circle</th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+   <circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="red"/>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Ellipse</th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+   <ellipse cx="50" cy="50" rx="40" ry="20" stroke="purple" stroke-width="2" fill="red"/>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Rectangle</th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+   <rect x="10" y="20" width="70" height="50" stroke="black" stroke-width="2" fill="blue"/>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+      <tr class="warn">
+        <th>Rectangle <em>(rounded corners)</em></th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+   <rect x="10" y="20" width="70" rx="20" ry="20" height="50" stroke="black" stroke-width="2" fill="gray"/>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+      <tr class="">
+        <th>Rectangle <em>(rounded corners, missing rx)</em></th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+   <rect x="10" y="20" width="70" ry="20" height="50" stroke="black" stroke-width="2" fill="gray"/>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+      <tr class="">
+        <th>Rectangle <em>(rounded corners, missing ry)</em></th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+   <rect x="10" y="20" width="70" rx="20" height="50" stroke="black" stroke-width="2" fill="gray"/>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+      <tr class="warn">
+        <th>Rectangle <em>(rounded corners, asymmetric)</em></th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+   <rect x="10" y="20" width="70" rx="2" ry="20" height="50" stroke="black" stroke-width="2" fill="gray"/>
+</svg>
+        </td>
+        <td></td>
+        <td class="note">Raphael only supports r, not rx/ry</td>
+      </tr>
+      <tr class="">
+        <th>Path <em>(lines only)</em></th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+   <path d="M20 10 L80 60 L0 50 Z" stroke="black" stroke-width="2" fill="blue"/>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+      <tr class="">
+        <th>Polygon</th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+   <polygon points="20,10 80,60 0,50" stroke="black" stroke-width="2" fill="gray"/>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+      <tr class="">
+        <th>Polyline</th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+   <polyline points="20,10 80,60 0,50" stroke="black" stroke-width="2" fill="gray"/>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+      <!--tr>
+        <th>full demo</th>
+        <td><embed src="assets/demo.svg" type="image/svg+xml"></td>
+        <td></td>
+      </tr-->
+    </tbody>
+
+    <tbody>
+      <tr>
+        <th colspan=4>Groups</th>
+      </tr>
+      <tr class="">
+        <th>Group</th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+  <g>
+   <circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="red"/>
+  </g>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+      <tr class="">
+        <th>Group <em>(with ID)</em></th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+  <g id="icanhascircle">
+    <circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="red"/>
+  </g>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+      <tr class="">
+        <th>Group / transform / translate</th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+  <g transform="translate(20, -10)">
+   <circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="red"/>
+   <rect x="0" y="40" width="50" height="20" stroke="black" stroke-width="2" fill="cadetblue"/>
+  </g>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+
+    <tbody>
+      <tr>
+        <th colspan=4>Transforms</th>
+      </tr>
+      <tr>
+        <th>Matrix (scale 70%)</th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+   <rect transform="matrix(0.7, 0, 0, 0.7, 0, 0)" x="10" y="20" width="70" height="50" stroke="black" stroke-width="2" fill="cadetblue"/>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Matrix (rotate 30 degrees)</th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+   <rect transform="matrix(0.866, 0.5, -0.5, 0.866, 0, 0)" x="10" y="20" width="70" height="50" stroke="black" stroke-width="2" fill="cadetblue"/>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Matrix (translate)</th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+   <rect transform="matrix(1, 0, 0, 1, 20.1, 10.1)" x="10" y="20" width="70" height="50" stroke="black" stroke-width="2" fill="cadetblue"/>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Matrix (translate, no commas)</th>
+        <td>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width=100 height=100>
+   <rect transform="matrix(1 0 0 1 20.1 10.1)" x="10" y="20" width="70" height="50" stroke="black" stroke-width="2" fill="cadetblue"/>
+</svg>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <script type="text/javascript">
+    // run tests
+    var set;
+    $('tr > td:nth-child(2)').each(function(idx, test_cell){
+      var test;
+      if ($('svg', test_cell).length) {
+          // all local test will fit in 100x100
+          var paper = Raphael($(test_cell).next()[0], 100, 100);
+          set = paper.importSVG(test_cell);
+          if (set.groups) {
+            // console.log(set);
+          }
+      }
+      else if ((test = $('embed', test_cell)).length) {
+        var url = $(test).attr('src');
+        $.ajax({
+          type: "GET",
+          url: url,
+          dataType: "xml",
+          success: function(svgXML){
+            var root = svgXML.getElementsByTagName('svg')[0].getAttribute('viewBox').split(' ');
+            var width = root[2],
+                height = root[3];
+            var paper = Raphael($(test_cell).next()[0], width, height);
+            var set = paper.importSVG(svgXML);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
